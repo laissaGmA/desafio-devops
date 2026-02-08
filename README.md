@@ -1,5 +1,11 @@
 # Desafio DevOps
 
+![Terraform](https://img.shields.io/badge/Terraform-IaC-blue)
+![Docker](https://img.shields.io/badge/Docker-Container-blue)
+![CI/CD](https://img.shields.io/badge/GitHub%20Actions-CI/CD-green)
+![Status](https://img.shields.io/badge/Status-Working-brightgreen)
+
+
 ## Objetivo
 Implementar um ambiente simples demonstrando práticas de DevOps, incluindo:
 
