@@ -1,0 +1,16 @@
+﻿name: Build Docker Image
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v4
+
+      - name: Build da imagem Docker
+        run: docker build -t hello-devops ./app
