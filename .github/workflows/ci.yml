@@ -16,11 +16,14 @@ jobs:
       - name: Baixar código
         uses: actions/checkout@v4
 
+      - name: Definir nome da imagem em lowercase
+        run: echo "IMAGE_NAME=ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/hello-devops:latest" >> $GITHUB_ENV
+
       - name: Login no GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build da imagem
-        run: docker build -t ghcr.io/${{ github.repository }}/hello-devops:latest ./app
+        run: docker build -t $IMAGE_NAME ./app
 
       - name: Publicar imagem
-        run: docker push ghcr.io/${{ github.repository }}/hello-devops:latest
+        run: docker push $IMAGE_NAME
