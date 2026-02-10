@@ -9,12 +9,12 @@
 
 provider "docker" {}
 
-# Rede própria pra os containers se enxergarem por nome (cadvisor, prometheus, etc.)
+
 resource "docker_network" "devops" {
   name = "devops-net"
 }
 
-# ========== APP (Hello World) ==========
+
 resource "docker_image" "hello" {
   name = "hello-devops:tf"
 
@@ -37,8 +37,7 @@ resource "docker_container" "web" {
   }
 }
 
-# ========== MONITORAMENTO ==========
-# cAdvisor: métricas de containers
+
 resource "docker_image" "cadvisor" {
   name = "gcr.io/cadvisor/cadvisor:latest"
 }
@@ -56,7 +55,7 @@ resource "docker_container" "cadvisor" {
     external = 8081
   }
 
-  # mounts necessários pro cAdvisor ler métricas do host/containers
+  
   volumes {
     host_path      = "/"
     container_path = "/rootfs"
@@ -79,7 +78,7 @@ resource "docker_container" "cadvisor" {
   }
 }
 
-# Prometheus: coleta métricas do cAdvisor
+
 resource "docker_image" "prometheus" {
   name = "prom/prometheus:latest"
 }
@@ -97,7 +96,7 @@ resource "docker_container" "prometheus" {
     external = 9090
   }
 
-  # monta o prometheus.yml
+  
   volumes {
     host_path      = "${abspath(path.module)}/../monitoring/prometheus.yml"
     container_path = "/etc/prometheus/prometheus.yml"
@@ -109,7 +108,7 @@ resource "docker_container" "prometheus" {
   ]
 }
 
-# Grafana: dashboards
+
 resource "docker_image" "grafana" {
   name = "grafana/grafana:latest"
 }
